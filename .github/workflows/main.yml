@@ -1,9 +1,7 @@
 name: Build and deploy Node.js app to Azure Web App
 
+# Execução somente manual: o deploy oficial da CP03 é feito pelo Azure DevOps (Classic Build + Classic Release).
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
