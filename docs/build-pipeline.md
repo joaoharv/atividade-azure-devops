@@ -7,13 +7,14 @@
 | Origem | GitHub `joaoharv/atividade-azure-devops` | Confirmado |
 | Branch | `main` | Confirmado |
 | Execução | Concluída com sucesso, Artifact `drop` publicado | Confirmado pelo autor; print pendente |
-| Agent pool / SO do agente | A verificar |  |
-| Gatilho de CI (Enable continuous integration) | A verificar |  |
+| Agent pool / imagem | Azure Pipelines / `ubuntu-latest` | Confirmado no log da Build #2 |
+| Gatilho de CI | A Build #2 foi iniciada por push, motivo Individual CI | Confirmado; configuração exata a verificar |
+| Duração da Build #2 | Cerca de 37 min (a etapa de publicar o Artifact levou 36 min 33 s) | Confirmado |
 | Versão do Node.js configurada | A verificar |  |
 
 ## Tasks
 
-Os nomes, ordem e parâmetros das tasks **não foram registrados aqui** porque dependem de conferência na interface (Pipelines → `CP03-Azure-DevOps-CI` → Edit). Preencher a tabela depois de abrir a pipeline:
+O log da Build #2 mostra estas etapas, com os nomes truncados na captura ([build-2-jobs-e-etapas.png](../entregaveis/evidencias/03-build/build-2-jobs-e-etapas.png)): Checkout, "Verificar ambie…", "Instalar depend…", "Validar aplicaçã…", "Preparar arquivo…" e "Publicar Ar…". Os nomes completos, tipos de task e parâmetros dependem de conferência na interface (Pipelines → `CP03-Azure-DevOps-CI` → Edit). Preencher a tabela depois de abrir a pipeline:
 
 | # | Finalidade esperada | Task / comando | Estado |
 |---|---|---|---|

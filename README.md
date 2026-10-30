@@ -45,7 +45,7 @@ Demais links (pipeline, App Service no portal) estão em [entregaveis/links.md](
 
 **Release Pipeline Classic** (`New release pipeline`, stage `Deploy-Producao`): recebe o Artifact e publica no App Service `app-cp03-prisma`. Ver [docs/release-deploy.md](docs/release-deploy.md).
 
-**Gatilhos:** a Build tem integração contínua na `main` (a confirmar na interface) e a Release tem o gatilho de Continuous Deployment habilitado para o Artifact. O fluxo completo depois de um push ainda não foi comprovado. Ver [docs/teste-automacao.md](docs/teste-automacao.md).
+**Gatilhos:** após o push do commit `69b3be7`, a Build #2 foi iniciada sozinha (motivo Individual CI) e terminou com sucesso, e a Release-2 foi criada por Continuous deployment e concluiu `Deploy-Producao` com sucesso. Ver [docs/teste-automacao.md](docs/teste-automacao.md).
 
 > O workflow `.github/workflows/main.yml` foi deixado apenas com `workflow_dispatch` para não competir com o Azure DevOps. O deploy oficial é feito só pelas pipelines Classic.
 
@@ -65,20 +65,33 @@ Acesse <http://localhost:8080>. A rota `/tema` retorna erro 500 sem as variávei
 
 | Etapa | Estado |
 |---|---|
-| Build Classic executada e Artifact publicado | Confirmado pelo autor; print pendente |
-| Release-1 / Deploy-Producao concluída | Confirmado pelo autor; print pendente |
-| Aplicação pública acessível | Confirmado pelo autor |
-| Alteração visual do badge no código | Feita localmente, **ainda não enviada ao GitHub** |
-| Push automático gerando Build, Artifact e Release | **Pendente** |
-| Professor com acesso Basic | **A verificar** |
+| Build #1 (manual) e Artifact `drop` | Concluídos (informado pelo autor; sem print da Build #1) |
+| Release-1 / `Deploy-Producao` | Succeeded (informado pelo autor; print pendente) |
+| Aplicação pública acessível | Confirmada (print com o badge antigo) |
+| Badge novo no código (`main` no GitHub) | Enviado no commit `69b3be7` |
+| Build #2 disparada pelo push (Individual CI) | Succeeded, com print |
+| Release-2 criada por Continuous deployment | `Deploy-Producao` Succeeded, com print |
+| Badge novo visível no site | Confirmado por consulta HTTP em 30/10/2026; print da página ainda pendente |
+| Professor com acesso Basic | **Pendente:** o print mostra `profkarlos.lima@fiap.com.br`, e o enunciado pede `pf2488@fiap.com.br` |
 
 ## Evidências e entrega
 
-Central de entrega em [entregaveis/](entregaveis/README.md): [checklist](entregaveis/checklist.md), [links](entregaveis/links.md) e pastas de [evidências](entregaveis/evidencias/). As imagens serão adicionadas depois, a partir do Azure DevOps e do Portal Azure.
+Central de entrega em [entregaveis/](entregaveis/README.md): [checklist](entregaveis/checklist.md), [links](entregaveis/links.md) e pastas de [evidências](entregaveis/evidencias/).
+
+| Evidência | Arquivo |
+|---|---|
+| Lista de pipelines, Build #2 (Individual CI) | [01-pipeline-classic](entregaveis/evidencias/01-pipeline-classic/lista-pipelines-build-2.png) |
+| Build #2: resultado e etapas | [03-build](entregaveis/evidencias/03-build/build-2-lista-pipelines.png), [etapas](entregaveis/evidencias/03-build/build-2-jobs-e-etapas.png) |
+| Aplicação publicada (badge antigo) | [07-aplicacao-publicada](entregaveis/evidencias/07-aplicacao-publicada/app-badge-antigo.png) |
+| Usuários com acesso Basic | [08-professor-basic](entregaveis/evidencias/08-professor-basic/usuarios-basic.png) |
+| Release-2 concluída (Continuous deployment, Succeeded) | [06-release-deploy](entregaveis/evidencias/06-release-deploy/release-2-succeeded.png) |
+| Release-2 em andamento | [09-automacao-git-push](entregaveis/evidencias/09-automacao-git-push/release-2-download-artifact-em-andamento.png) |
+
+Ainda sem imagem: Editor Clássico e tasks configuradas, Artifact, Service Connection, Release-1, Portal Azure e o site com o badge novo.
 
 ## Limitações e melhorias futuras
 
-- O Artifact foi publicado com cerca de 17 mil arquivos por incluir `node_modules`, o que deixa a publicação lenta. Uma opção é publicar só `index.js`, `package.json` e `package-lock.json` e deixar o App Service instalar as dependências. Isso exige mudar a Build e/ou configurações do App Service, o que não foi feito.
+- O Artifact foi publicado com cerca de 17 mil arquivos por incluir `node_modules`; a etapa de publicação da Build #2 levou cerca de 36 min e o download na Release também é lento. Uma opção é publicar só `index.js`, `package.json` e `package-lock.json` e deixar o App Service instalar as dependências. Isso exige mudar a Build e/ou configurações do App Service, o que não foi feito.
 - Não há scripts `build` nem `test` no `package.json`; a "validação" da Build se limita a instalar dependências e checar o que estiver configurado.
 - A rota `/tema` devolve `err.message` ao cliente e usa uma tabela de exemplo.
 - Pipelines Classic não ficam versionadas no repositório; a configuração é documentada em `docs/`.

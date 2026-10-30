@@ -12,6 +12,8 @@
 | Task de deploy e pacote/pasta usados | A verificar | |
 | Comando de inicialização | A verificar (o `package.json` usa `npm start`) | |
 | Release-1 | Stage `Deploy-Producao` executado com sucesso | Confirmado pelo autor; print pendente |
+| Release-2 | Continuous deployment, artifact da Build #2, branch `main`; `Deploy-Producao` **Succeeded** em 30/10/2026, 12:16 | Confirmado: [print](../entregaveis/evidencias/06-release-deploy/release-2-succeeded.png); ver [teste-automacao.md](teste-automacao.md) |
+| Task de deploy | `Deploy Azure App Service` (nome visível no log da Release-2) | Parâmetros a verificar |
 
 ## Critérios de sucesso
 
